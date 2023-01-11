@@ -469,36 +469,198 @@
 // protected - 나와 파생된 후손 클래스 내에서 접근 가능
 // private - 내 클래스에서만 접근 가능
 
-class UserA {
-  // this 는 클래스 body 안에 타입이 지정되어 있어야함
-  //   first: string = "";
-  //   protected last: string = "";
-  //   private age: number = 0;
+// class UserA {
+//   // this 는 클래스 body 안에 타입이 지정되어 있어야함
+//   //   first: string = "";
+//   //   protected last: string = "";
+//   //   private age: number = 0;
 
-  constructor(
-    public first: string = "",
-    public last: string = "",
-    public age: number = 0
-  ) {
-    // ...
-  }
+//   constructor(
+//     public first: string = "",
+//     public last: string = "",
+//     public age: number = 0
+//   ) {
+//     // ...
+//   }
 
-  getAge() {
-    return `${this.first} ${this.last} is ${this.age}`;
-  }
-}
-class UserB extends UserA {
-  getAge() {
-    return `${this.first} ${this.last} is ${this.age}`;
-  }
-}
-class UserC extends UserA {
-  getAge() {
-    return `${this.first} ${this.last} is ${this.age}`;
-  }
-}
+//   getAge() {
+//     return `${this.first} ${this.last} is ${this.age}`;
+//   }
+// }
+// class UserB extends UserA {
+//   getAge() {
+//     return `${this.first} ${this.last} is ${this.age}`;
+//   }
+// }
+// class UserC extends UserA {
+//   getAge() {
+//     return `${this.first} ${this.last} is ${this.age}`;
+//   }
+// }
 
-const neo = new UserA("Neo", "Anderson", 102);
-console.log(neo.first);
-console.log(neo.last);
-console.log(neo.age);
+// const neo = new UserA("Neo", "Anderson", 102);
+// console.log(neo.first);
+// console.log(neo.last);
+// console.log(neo.age);
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+// 제네릭
+// 함수
+
+// interface Obj {
+//   x: number;
+// }
+// type Arr = [number, number];
+
+// function toArray<T>(a: T, b: T) {
+//   return [a, b];
+// }
+
+// console.log(
+//   toArray("Neo", "Anderson"),
+//   toArray(1, 2),
+//   toArray(true, false),
+//   toArray({ x: 1 }, { x: 2 }),
+//   toArray<Arr>([1, 2], [3, 4]) // number[]
+// );
+
+// 클래스
+
+// class User<P> {
+//   constructor(public payload: P) {}
+//   getPayload() {
+//     return this.payload;
+//   }
+// }
+
+// interface UserAType {
+//   name: string;
+//   age: number;
+//   isValid: boolean;
+// }
+// interface UserBType {
+//   name: string;
+//   age: number;
+//   emails: string[];
+// }
+// const heropy = new User<UserAType>({
+//   name: "Heropy",
+//   age: 85,
+//   isValid: true,
+//   //   emails: [],
+// });
+// const neo = new User<UserBType>({
+//   name: "Neo",
+//   age: 30,
+//   emails: ["neo@gamil.com"],
+// });
+
+// 인터페이스, 제약조선
+
+// interface MyData<T extends string | number[]> {
+//   name: string;
+//   value: T;
+// }
+// const dataA: MyData<string> = {
+//   name: "Data A",
+//   value: "Hello world",
+// };
+// const dataB: MyData<number> = {
+//   name: "Data B",
+//   value: 1234,
+// };
+// const dataC: MyData<boolean> = {
+//   name: "Data C",
+//   value: true,
+// };
+// const dataD: MyData<number[]> = {
+//   name: "Data D",
+//   value: [1, 2, 3, 4],
+// };
+
+//////////////////////////////////////////////////////////////////////////////
+
+// 모듈
+
+// npm i lodash
+// TS 파일에서 JS 파일을 가져오려 하니 error 발생 >> 타입선언 필요
+
+// 삼중 슬래시 지시자
+// /// <reference path="./main.d.ts" />
+// declare module "lodash" {
+//     interface Lodash {
+//       camelCase: (str: string) => string;
+//       snakeCase: (str: string) => string;
+//       kebabCase: (str: string) => string;
+//     }
+//     const _: Lodash;
+//     export default _;
+//   }
+// import _ from "lodash";
+// // npm info @types/lodash >> 패키지 있는지 확인
+// // npm i @types/lodash -D
+
+// const str = "the brown fox jumps over the lazy dog";
+
+// console.log(_.camelCase(str));
+// console.log(_.snakeCase(str));
+// console.log(_.kebabCase(str));
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+// 타입 가져오기
+
+// import { getFullName, User } from "./user";
+
+// const heropy: User = {
+//   firstName: "Heropy",
+//   lastName: "park",
+//   age: 85,
+//   isValid: true,
+// };
+// const fullName = getFullName(heropy);
+
+// console.log(fullName);
+// console.log(heropy.isValid);
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+// tsconfig.json 구성 옵션
+
+// {    컴파일러 옵션 지정
+//     "compilerOptions": {
+// 컴파일될 ES(JS) 버전 명시 - "ES2015" 권장
+//       "target": "ES2015",
+
+// 모듈 시스템 지정 - "CommonJS", "AMD", "ESNext"
+//       "module": "ESNext",
+
+// 모듈 해석 방식 지정 - "Node", "Classic"
+//       "moduleResolution": "Node",
+
+// ESM 모듈 방식 호환성 활성화 여부
+//       "esModuleInterop": true,
+
+// 모든 파일을 모듈로 컴파일, import 혹은 export 키워드
+// 필수
+//       "isolatedModules : false",
+
+// 모듈 해석에 사용할 기준 경로 지정
+//       "baseUrl" : "./",
+
+// 컴파일러가 참조할 타입 선언(d.ts)의 경로를 지정
+//       "typeRoots" : ["./node_modules/@types"],
+
+// 컴파일에서 사용할 라이브러리 지정 - "ESNext", "DOM"
+//       "lib": ["ESNext", "DOM"],
+
+// 더 엄격한 타입 검색 활성화
+//       "strict": true,
+
+//     // 컴파일할 파일 경로 목록
+//     "include": ["src/**/*.ts", "api/**/*.ts"],
+
+//     // 컴파일에서 제외할 파일 경로 목록
+//     "exclude": ["node_modules"]
+//   }

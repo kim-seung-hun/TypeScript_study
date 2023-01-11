@@ -7,6 +7,8 @@
     "lib": ["ESNext", "DOM"],
     "strict": true
   },
-  "include": ["src/**/*.ts"],
+  // 컴파일할 파일 경로 목록
+  "include": ["src/**/*.ts", "api/**/*.ts"],
+  // 컴파일에서 제외할 파일 경로 목록
   "exclude": ["node_modules"]
 }
