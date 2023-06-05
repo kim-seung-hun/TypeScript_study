@@ -7,6 +7,12 @@
 // TS는 직접적으로 브라우저나 Node.js 환경에서 동작하지 못한다
 // >> 자바스크립토 변환하여 동작 (= 컴파일)
 
+// let hello: String = "hi!";
+
+// hello = "Hello world!";
+
+// console.log(hello);
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 // 타입 종류
@@ -22,8 +28,8 @@
 // let num: number;
 // let integer: number = 6;
 // let float: number = 3.14;
-// let infinity: number = Infinity;
-// let nan: number = NaN;
+// let infinity: number = Infinity; >> 숫자데이터로 취급 가능
+// let nan: number = NaN; >> Not a Number
 
 // 불린
 // let isBoolean: boolean;
@@ -101,6 +107,7 @@
 // const obj: { x: string; y: number } = u;
 
 // Tuple
+// 배열 안 데이터에 순서가 있을때
 // const tuple: [string, number, boolean] = ["a", 1, false];
 // const users: [number, string, boolean][] = [
 //   [1, "Neo", true],
@@ -110,7 +117,7 @@
 
 // Void
 // function hello(msg: string): void {
-//   // return으로 반환되지 않을때 void 사용
+//   // return으로 반환되지 않을때 void 사용 >> 반환하지 않을때
 //   console.log(`Hello ${msg}`);
 // }
 // const hi: void = hello("world");
@@ -167,8 +174,10 @@
 // 1)
 // const el = document.querySelector("body") as HTMLBodyElement;
 // el.textContent = "Hello world?!";
+
 // const el = document.querySelector("body");
 // el!.textContent = "Hello world?!";
+
 // const el = document.querySelector(".title"); // .title의 경우 없을 수 있기 때문에 코드상 문제는 없더라도 error가 발생
 // if (el) {
 // 타입가드
@@ -178,7 +187,9 @@
 // 2)
 // function getNumber(x: number | null | undefined) {
 //   // return Number((x as number).toFixed(2));
-//   //   return Number(x!.toFixed(2));
+
+//   // return Number(x!.toFixed(2)); >> ! : null or undefined가 아니다.
+
 //   if (x) {
 //     // 타입가드
 //     return Number(x.toFixed(2));
@@ -213,7 +224,7 @@
 // }
 
 // const h1El = document.querySelector("h1"); // 해당 요소가 없을 수 있기 떄문
-// if (h1El instanceof HTMLHeadElement) {
+// if (h1El instanceof HTMLHeadElement) { // instanceof : 어떤 클래스의 insstance 인지
 //   logText(h1El);
 // }
 
@@ -283,6 +294,7 @@
 
 //// 인터페이스(Interface)
 //// 인덱스 가능 타입 - 인덱스 시그니쳐 (Index Signature)
+//// 대괄호 표기법
 
 // // 배열
 // interface Fruits {
@@ -315,7 +327,7 @@
 // }
 
 // interface User {
-//   [key: string]: unknown;
+//   [key: string]: unknown; // 인덱스 가능한타입 추가
 //   name: string;
 //   age: number;
 //   isValid: boolean;
